@@ -9,6 +9,17 @@
     <code code="8716-3" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Vital signs"/>
     <title>Vital Signs</title>
     <@narrative.narrative entries=ehr_vital_signs section="observations"/>
+    <#-- Collect unique timestamps from all vital signs observations -->
+    <#assign timestamps = []>
+    <#list ehr_vital_signs as entry>
+      <#if !timestamps?seq_contains(entry.start)>
+        <#assign timestamps = timestamps + [entry.start]>
+      </#if>
+    </#list>
+    <#-- Sort timestamps chronologically -->
+    <#assign timestamps = timestamps?sort>
+    <#-- Create one entry/organizer per unique timestamp -->
+    <#list timestamps as timestamp>
     <entry typeCode="DRIV">
       <organizer classCode="CLUSTER" moodCode="EVN">
         <templateId root="2.16.840.1.113883.10.20.22.4.26"/>
@@ -19,8 +30,9 @@
           <translation code="74728-7" displayName="Vital signs, weight, height, head circumference, oximetry, BMI, and BSA panel" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" />
         </code>
         <statusCode code="completed"/>
-        <effectiveTime value="${time?number_to_date?string["yyyyMMddHHmmss"]}"/>
+        <effectiveTime value="${timestamp?number_to_date?string["yyyyMMddHHmmss"]}"/>
         <#list ehr_vital_signs as entry>
+        <#if entry.start == timestamp>
         <#if entry.value??>
         <component>
           <observation classCode="OBS" moodCode="EVN">
@@ -92,8 +104,10 @@
           </observation>
         </component>
         </#if>
+        </#if>
         </#list>
       </organizer>
     </entry>
+    </#list>
   </section>
 </component>

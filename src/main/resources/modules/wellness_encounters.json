@@ -407,6 +407,26 @@
                     "display": "Prediabetes (finding)"
                   }
                 ]
+              },
+              {
+                "condition_type": "Active Condition",
+                "codes": [
+                  {
+                    "system": "SNOMED-CT",
+                    "code": "38341003",
+                    "display": "Hypertensive disorder, systemic arterial (disorder)"
+                  }
+                ]
+              },
+              {
+                "condition_type": "Active Condition",
+                "codes": [
+                  {
+                    "system": "SNOMED-CT",
+                    "code": "59621000",
+                    "display": "Essential hypertension (disorder)"
+                  }
+                ]
               }
             ]
           },
@@ -608,6 +628,16 @@
                     "system": "SNOMED-CT",
                     "code": "38341003",
                     "display": "Hypertensive disorder, systemic arterial (disorder)"
+                  }
+                ]
+              },
+              {
+                "condition_type": "Active Condition",
+                "codes": [
+                  {
+                    "system": "SNOMED-CT",
+                    "code": "59621000",
+                    "display": "Essential hypertension (disorder)"
                   }
                 ]
               }

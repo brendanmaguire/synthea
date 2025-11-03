@@ -84,6 +84,11 @@ public class CCDAExporter {
     for (Encounter encounter : person.record.encounters) {
       if (encounter.start <= time) {
         superEncounter.observations.addAll(encounter.observations);
+        for (Observation observation: encounter.observations) {
+          if (observation.observations != null && !observation.observations.isEmpty()) {
+            superEncounter.observations.addAll(observation.observations);
+          }
+        }
         superEncounter.reports.addAll(encounter.reports);
         superEncounter.conditions.addAll(encounter.conditions);
         superEncounter.allergies.addAll(encounter.allergies);
